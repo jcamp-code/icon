@@ -27,7 +27,7 @@ export interface ModuleOptions {}
 export default defineNuxtModule<TailwindIconsModuleOptions>({
   meta: {
     name: 'nuxt-icon-tw',
-    configKey: 'icon',
+    configKey: 'iconTw',
     compatibility: {
       nuxt: '>=3.0.0',
     },
