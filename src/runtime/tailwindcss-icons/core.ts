@@ -4,8 +4,15 @@ import type { IconifyIcon, IconifyJSON } from './iconifyTypes'
 import { getIconCSS, getIconData } from '@iconify/utils'
 import { createRequire } from 'module'
 import { availableCollectionNames, type CollectionNames } from '../../types'
-import type { GenerateOptions } from './types'
-import type { IconCollection } from '.'
+import type {
+  GenerateOptions,
+  IconCollection,
+  IconsPluginOptions,
+} from './types'
+
+import type { IconifyJSONIconsData } from './iconifyTypes'
+import { parseIconSet } from '@iconify/utils'
+import { defu } from 'defu'
 
 const req = createRequire(import.meta.url)
 
@@ -178,4 +185,69 @@ export const generateComponent = (
   const data = getIconData(icons, name)
   if (!data) return null
   return generateIconComponent(data, options)
+}
+
+export const getAllIconComponents = (
+  iconsPluginOptions?: IconsPluginOptions
+) => {
+  const {
+    collections: propsCollections,
+    customCollections = {},
+    scale = 1,
+    prefix = 'i',
+    extraProperties = {},
+  } = iconsPluginOptions ?? {}
+
+  const collections = defu(
+    {} as IconCollection,
+    getAutoIconCollections(propsCollections),
+    getCustomCollections(customCollections)
+  )
+
+  const components: Record<string, Record<string, Record<string, string>>> = {}
+  const collectionPrefixes = [] as string[]
+
+  if (prefix) components[prefix] = {}
+
+  for (const colPrefix of Object.keys(collections)) {
+    collectionPrefixes.push(prefix ? `${prefix}-${colPrefix}` : `${colPrefix}`)
+    const collection: IconifyJSONIconsData = {
+      ...collections[colPrefix],
+      prefix: colPrefix,
+    }
+    if (!prefix) components[colPrefix] = {}
+
+    parseIconSet(collection, (name, data) => {
+      if (!data || !name) return
+      const key = prefix ? `${colPrefix}-${name}` : `${name}`
+      components[prefix || colPrefix][key] = generateIconComponent(data, {
+        scale,
+        extraProperties,
+      })
+    })
+  }
+
+  return components
+}
+
+export const getAllPrefixes = (iconsPluginOptions?: IconsPluginOptions) => {
+  const {
+    collections: propsCollections,
+    customCollections = {},
+    prefix = 'i',
+  } = iconsPluginOptions ?? {}
+
+  const collections = defu(
+    {} as IconCollection,
+    getAutoIconCollections(propsCollections),
+    getCustomCollections(customCollections)
+  )
+
+  const collectionPrefixes = [] as string[]
+
+  for (const colPrefix of Object.keys(collections)) {
+    collectionPrefixes.push(prefix ? `${prefix}-${colPrefix}` : `${colPrefix}`)
+  }
+
+  return collectionPrefixes
 }
