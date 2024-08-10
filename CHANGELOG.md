@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://github.com/jcamp-code/nuxt-icon-tw/compare/v0.2.0...v0.3.0)
+
+### 🩹 Fixes
+
+- Update to work with latest nuxt/tailwindcss ([ea14a2a](https://github.com/jcamp-code/nuxt-icon-tw/commit/ea14a2a))
+- Change nuxt config key to iconTw to not conflict with @nuxt/icon ([4e60378](https://github.com/jcamp-code/nuxt-icon-tw/commit/4e60378))
+- ⚠️  Tweaks to build ([b5800fb](https://github.com/jcamp-code/nuxt-icon-tw/commit/b5800fb))
+
+### 🏡 Chore
+
+- Indicate compatibility with new v4 major ([#9](https://github.com/jcamp-code/nuxt-icon-tw/pull/9))
+- Linting ([7f3ed51](https://github.com/jcamp-code/nuxt-icon-tw/commit/7f3ed51))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Tweaks to build ([b5800fb](https://github.com/jcamp-code/nuxt-icon-tw/commit/b5800fb))
+
+### ❤️ Contributors
+
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+
 ## v0.2.0
 
 [compare changes](https://github.com/jcamp-code/nuxt-icon-tw/compare/v0.1.3...v0.2.0)
