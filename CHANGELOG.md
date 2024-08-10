@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.0.0
+
+[compare changes](https://github.com/jcamp-code/nuxt-icon-tw/compare/v0.3.0...v1.0.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Update naming consistency ([e70528d](https://github.com/jcamp-code/nuxt-icon-tw/commit/e70528d))
+- ⚠️  Simplify sizing and remove scale option ([68fb0ac](https://github.com/jcamp-code/nuxt-icon-tw/commit/68fb0ac))
+
+### 🏡 Chore
+
+- V1.0 prep ([c831ef2](https://github.com/jcamp-code/nuxt-icon-tw/commit/c831ef2))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Update naming consistency ([e70528d](https://github.com/jcamp-code/nuxt-icon-tw/commit/e70528d))
+- ⚠️  Simplify sizing and remove scale option ([68fb0ac](https://github.com/jcamp-code/nuxt-icon-tw/commit/68fb0ac))
+
 ## v0.3.0
 
 [compare changes](https://github.com/jcamp-code/nuxt-icon-tw/compare/v0.2.0...v0.3.0)
