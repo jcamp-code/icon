@@ -160,11 +160,13 @@ export const generateIconComponent = (
   const rules: Record<string, string> = {}
   css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
     if (prop === 'width' || prop === 'height') {
-      rules[prop] = !options.size
-        ? ''
-        : String(Number(options.size)) === options.size
-        ? `${options.size}px`
-        : `${options.size}`
+      rules[prop] =
+        options.size === false
+          ? ''
+          : String(Number(options.size)) === options.size
+          ? `${options.size}px`
+          : `${options.size}`
+      options.size === false && delete rules[prop]
     } else {
       rules[prop] = value
     }

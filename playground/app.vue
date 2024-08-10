@@ -3,8 +3,14 @@
     <p class="bg-blue-200">
       Tailwind:
       <IconTw name="mdi-abacus" />
+      <IconTw name="mdi-abacus" size="2em" />
       <IconTw name="mdi-abacus" size="24" />
       <IconTw name="mdi-abacus" size="48" />
+    </p>
+    <p class="bg-blue-200">
+      Spans:
+      <span class="mdi-abacus" />
+      <span class="mdi-access-point-minus" />
     </p>
     <p class="bg-blue-200">
       Automatic:

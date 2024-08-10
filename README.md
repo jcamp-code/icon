@@ -9,11 +9,12 @@
 
 Add [100,000+ ready to use icons](https://icones.js.org) to your [Nuxt](https://nuxt.com) application, based on [Iconify](https://iconify.design).
 
-Uses [Tailwind CSS Icons](https://github.com/egoist/tailwindcss-icons) to load locally rather than via API calls for each icon
+## Differences from @nuxt/icon
 
-Can add custom collections from JSON files in addition to locally installed Iconify packages
-
-Falls back to API calls for collections not loaded locally
+- Based on [Tailwind CSS Icons](https://github.com/egoist/tailwindcss-icons) to load locally rather than via API calls for each icon
+- Can add custom collections from JSON files in addition to locally installed Iconify packages
+- Uses Tailwind to manage the CSS rather than deal with it internally
+- Since it uses Tailwind, can provide icons outside of specific `<Icon />` components, so they will work in other components, like PrimeVue
 
 ## Features ✨
 
@@ -23,6 +24,7 @@ Falls back to API calls for collections not loaded locally
 - Support 100,000 open source vector icons via [Iconify](https://iconify.design)
 - Emoji Support
 - Custom SVG support (via Vue component)
+- Falls back to API calls for collections not loaded locally
 
 ## Setup ⛓️
 
@@ -42,6 +44,8 @@ export default defineNuxtConfig({
   modules: ['nuxt-icon-tw', '@nuxtjs/tailwindcss'],
 })
 ```
+
+Be sure it is before any other modules that might bring in @nuxt/icon so the Icon component from this package will be used first.
 
 Install any Iconify JSON packages you want to use via Tailwind CSS:
 
@@ -199,6 +203,8 @@ export default defineNuxtConfig({
 
 To update the default size (`1em`) of the `<Icon />`, create an `app.config.ts` with the `iconTw.size` property.
 
+The `app.config.ts` will override any size setting in `nuxt.config.ts`
+
 Update the default class (`.icon`) of the `<Icon />` with the `iconTw.class` property, for a headless Icon, simply set `iconTw.class: ''`.
 
 You can also define aliases to make swapping out icons easier by leveraging the `iconTw.aliases` property.
@@ -270,7 +276,7 @@ const MyIcon = h(Icon, { name: 'uil:twitter' })
 
 ## Credits 💌
 
-- Original [Nuxt Icon](https://github.com/nuxt-modules/icon)
+- Original [Nuxt Icon](https://github.com/nuxt/icon)
 - [@egoist](https://github.com/egoist) for his [Tailwind CSS icons plugin](https://github.com/egoist/tailwindcss-icons)
 - My [earlier attempt](https://github.com/jcamp-code/tailwindcss-plugin-icons) at a Tailwind Icons plugin (worked but slowly)
 - [@benjamincanac](https://github.com/benjamincanac) for the initial version
