@@ -3,12 +3,12 @@ import fs from 'fs'
 import type { IconifyIcon, IconifyJSON } from './iconifyTypes'
 import { getIconCSS, getIconData } from '@iconify/utils'
 import { createRequire } from 'module'
-import { availableCollectionNames, type CollectionNames } from '../../types'
+import { availableCollectionNames, type CollectionNames } from './collections'
 import type {
   GenerateOptions,
   IconCollection,
   IconsPluginOptions,
-} from './types'
+} from './internalTypes'
 
 import type { IconifyJSONIconsData } from './iconifyTypes'
 import { parseIconSet } from '@iconify/utils'

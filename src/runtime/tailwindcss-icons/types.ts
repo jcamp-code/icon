@@ -1,4 +1,4 @@
-import type { CollectionNames } from '../../types'
+import type { CollectionNames } from './collections'
 import type { IconifyJSONIconsData } from './iconifyTypes'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
