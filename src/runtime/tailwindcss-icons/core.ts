@@ -1,16 +1,19 @@
 import path from 'path'
 import fs from 'fs'
-import type { IconifyIcon, IconifyJSON } from './iconifyTypes'
+import type {
+  IconifyIcon,
+  IconifyJSON,
+  IconifyJSONIconsData,
+} from './types.iconify'
 import { getIconCSS, getIconData } from '@iconify/utils'
 import { createRequire } from 'module'
 import { availableCollectionNames, type CollectionNames } from './collections'
 import type {
   GenerateOptions,
   IconCollection,
-  IconsPluginOptions,
-} from './internalTypes'
+  IconsTailwindPluginOptions,
+} from './types'
 
-import type { IconifyJSONIconsData } from './iconifyTypes'
 import { parseIconSet } from '@iconify/utils'
 import { defu } from 'defu'
 
@@ -188,7 +191,7 @@ export const generateComponent = (
 }
 
 export const getAllIconComponents = (
-  iconsPluginOptions?: IconsPluginOptions
+  iconsTailwindPluginOptions?: IconsTailwindPluginOptions
 ) => {
   const {
     collections: propsCollections,
@@ -196,7 +199,7 @@ export const getAllIconComponents = (
     scale = 1,
     prefix = 'i',
     extraProperties = {},
-  } = iconsPluginOptions ?? {}
+  } = iconsTailwindPluginOptions ?? {}
 
   const collections = defu(
     {} as IconCollection,
@@ -230,7 +233,9 @@ export const getAllIconComponents = (
   return components
 }
 
-export const getAllPrefixes = (iconsPluginOptions?: IconsPluginOptions) => {
+export const getAllPrefixes = (
+  iconsPluginOptions?: IconsTailwindPluginOptions
+) => {
   const {
     collections: propsCollections,
     customCollections = {},

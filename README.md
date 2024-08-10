@@ -134,7 +134,7 @@ Note you can also get these to show up in [VS Code Iconify](https://marketplace.
 <Icon name="NuxtIcon" />
 ```
 
-Note that `NuxtIcon` needs to be inside `components/global/` folder (see [example](https://github.com/jcamp-code/nuxt-icon-tw/blob/main/playground/components/global/NuxtIcon.vue)).
+Note that `NuxtIcon` needs to be inside `components/global/` folder (see [example](https://github.com/jcamp-code/nuxt-icon-tw/blob/main/playground/components/global/iconTw.vue)).
 
 ## Tailwind Icons Configuration
 
@@ -197,16 +197,16 @@ export default defineNuxtConfig({
 
 ## Configuration ⚙️
 
-To update the default size (`1em`) of the `<Icon />`, create an `app.config.ts` with the `nuxtIcon.size` property.
+To update the default size (`1em`) of the `<Icon />`, create an `app.config.ts` with the `iconTw.size` property.
 
-Update the default class (`.icon`) of the `<Icon />` with the `nuxtIcon.class` property, for a headless Icon, simply set `nuxtIcon.class: ''`.
+Update the default class (`.icon`) of the `<Icon />` with the `iconTw.class` property, for a headless Icon, simply set `iconTw.class: ''`.
 
-You can also define aliases to make swapping out icons easier by leveraging the `nuxtIcon.aliases` property.
+You can also define aliases to make swapping out icons easier by leveraging the `iconTw.aliases` property.
 
 ```ts
 // app.config.ts
 export default defineAppConfig({
-  nuxtIcon: {
+  iconTw: {
     size: '24px', // default <Icon> size applied
     class: 'icon', // default <Icon> class applied
     aliases: {
@@ -222,14 +222,14 @@ The icons will have the default size of `24px` and the `nuxt` icon will be avail
 <Icon name="nuxt" />
 ```
 
-By default, this module will fetch the Icons from [the official Iconify API](https://api.iconify.design). You can change this behavior by setting the `nuxtIcon.iconifyApiOptions.url` property to [your own Iconify API](https://iconify.design/docs/api/hosting.html).
+By default, this module will fetch the Icons from [the official Iconify API](https://api.iconify.design). You can change this behavior by setting the `iconTw.iconifyApiOptions.url` property to [your own Iconify API](https://iconify.design/docs/api/hosting.html).
 
-You can also set `nuxtIcon.iconifyApiOptions.publicApiFallback` to `true` to use the public API as a fallback (only for the `<Icon>` component, not for the `<IconCSS>` component`)
+You can also set `iconTw.iconifyApiOptions.publicApiFallback` to `true` to use the public API as a fallback (only for the `<Icon>` component, not for the `<IconCSS>` component`)
 
 ```ts
 // app.config.ts
 export default defineAppConfig({
-  nuxtIcon: {
+  iconTw: {
     // ...
     iconifyApiOptions: {
       url: 'https://<your-api-url>',

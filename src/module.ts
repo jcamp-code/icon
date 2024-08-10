@@ -6,7 +6,7 @@ import {
   addTemplate,
 } from '@nuxt/kit'
 import { defu } from 'defu'
-import type { IconsPluginOptions } from './runtime/tailwindcss-icons/types'
+import type { IconsTailwindPluginOptions } from './runtime/tailwindcss-icons/types'
 import { getAllPrefixes } from './runtime/tailwindcss-icons/core'
 import type { NuxtModule } from '@nuxt/schema'
 
@@ -17,8 +17,7 @@ export type TailwindIconsModuleOptions = {
    * @default false
    */
   tailwindOnly?: boolean
-  resolvedPrefixes?: string[]
-} & IconsPluginOptions
+} & IconsTailwindPluginOptions
 
 // Learn how to create a Nuxt module on https://nuxt.com/docs/guide/going-further/modules/
 const module: NuxtModule<TailwindIconsModuleOptions> =
@@ -35,6 +34,7 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
       resolvedPrefixes: [],
       prefix: 'i',
       scale: 1,
+      size: undefined,
     } as TailwindIconsModuleOptions,
     setup(options, nuxt) {
       const { resolve } = createResolver(import.meta.url)
@@ -43,10 +43,12 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
         filename: 'nuxt-icon-tw-plugin-config.ts',
         write: true,
         getContents: () => `
-        import { iconsPlugin } from ${JSON.stringify(
+        import { iconsTailwindPlugin } from ${JSON.stringify(
           resolve('./runtime/tailwindcss-icons')
         )}
-        export default { plugins: [iconsPlugin(${JSON.stringify(options)})] }
+        export default { plugins: [iconsTailwindPlugin(${JSON.stringify(
+          options
+        )})] }
       `,
       })
 
@@ -78,10 +80,10 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
       nuxt.hook('schema:extend', (schemas) => {
         schemas.push({
           appConfig: {
-            nuxtIcon: {
+            iconTw: {
               $schema: {
-                title: 'Nuxt Icon',
-                description: 'Configure the defaults of Nuxt Icon',
+                title: 'Nuxt Icon Tailwind',
+                description: 'Configure the defaults of Nuxt Icon Tailwind',
               },
               size: {
                 $default: '1em',
@@ -171,7 +173,7 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
         filePath: resolve('./runtime/IconTw.vue'),
       })
 
-      addPlugin(resolve('./runtime/plugin'))
+      addPlugin(resolve('./runtime/nuxt-plugin'))
 
       nuxt.hook('devtools:customTabs', (iframeTabs) => {
         iframeTabs.push({

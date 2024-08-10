@@ -1,8 +1,10 @@
 import plugin from 'tailwindcss/plugin.js'
 import { getAllIconComponents } from './core'
-import type { IconsPluginOptions } from './types'
+import type { IconsTailwindPluginOptions } from './types'
 
-export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
+export const iconsTailwindPlugin = (
+  iconsPluginOptions?: IconsTailwindPluginOptions
+) => {
   const components = getAllIconComponents(iconsPluginOptions)
 
   return plugin(({ matchComponents }) => {

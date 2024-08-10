@@ -3,13 +3,12 @@ import { computed } from 'vue'
 import { useAppConfig } from '#imports'
 
 const appConfig = useAppConfig() as unknown as {
-  nuxtIcon: {
+  iconTw: {
     size?: string
     class?: string
     aliases?: Record<string, string>
   }
 }
-
 
 const props = defineProps({
   name: {
@@ -26,8 +25,8 @@ const iconName = computed(() => {
   let result = props.name
 
   // aliases will only work if the app.config.ts file is scanned by tailwind
-  if (appConfig.nuxtIcon?.aliases && appConfig.nuxtIcon.aliases[props.name]) {
-    result = appConfig.nuxtIcon.aliases[props.name]
+  if (appConfig.iconTw?.aliases && appConfig.iconTw.aliases[props.name]) {
+    result = appConfig.iconTw.aliases[props.name]
   }
 
   return result
@@ -38,15 +37,15 @@ const iconName = computed(() => {
 })
 
 const sSize = computed(() => {
-  // Disable size if appConfig.nuxtIcon.size === false
+  // Disable size if appConfig.iconTw.size === false
   if (
     !props.size &&
-    typeof appConfig.nuxtIcon?.size === 'boolean' &&
-    !appConfig.nuxtIcon?.size
+    typeof appConfig.iconTw?.size === 'boolean' &&
+    !appConfig.iconTw?.size
   ) {
     return undefined
   }
-  const size = props.size || appConfig.nuxtIcon?.size || '1em'
+  const size = props.size || appConfig.iconTw?.size || '1em'
   if (String(Number(size)) === size) {
     return `${size}px`
   }

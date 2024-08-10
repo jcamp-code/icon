@@ -1,5 +1,5 @@
 export default {
-  nuxtIcon: {
+  iconTw: {
     size: false,
     aliases: {
       github: 'carbon:logo-github',

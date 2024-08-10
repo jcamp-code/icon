@@ -8,7 +8,7 @@ import { useAppConfig, useNuxtApp, useState } from '#imports'
 
 const nuxtApp = useNuxtApp()
 const appConfig = useAppConfig() as unknown as {
-  nuxtIcon: {
+  iconTw: {
     size?: string
     class?: string
     aliases?: Record<string, string>
@@ -22,87 +22,125 @@ const appConfig = useAppConfig() as unknown as {
 const props = defineProps({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   size: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
 
-watch(() => appConfig.nuxtIcon?.iconifyApiOptions, () => {
-  if (!appConfig.nuxtIcon?.iconifyApiOptions?.url) return
+watch(
+  () => appConfig.iconTw?.iconifyApiOptions,
+  () => {
+    if (!appConfig.iconTw?.iconifyApiOptions?.url) return
 
-  // validate the custom Iconify API URL
-  try {
-    new URL(appConfig.nuxtIcon.iconifyApiOptions.url)
-  } catch (e) {
-    console.warn('Nuxt Icon: Invalid custom Iconify API URL')
-    return
-  }
+    // validate the custom Iconify API URL
+    try {
+      new URL(appConfig.iconTw.iconifyApiOptions.url)
+    } catch (e) {
+      console.warn('Nuxt Icon: Invalid custom Iconify API URL')
+      return
+    }
 
-  // don't override the default public api if publicApiFallback is enabled. See more: https://iconify.design/docs/api/providers.html
-  if (appConfig.nuxtIcon?.iconifyApiOptions?.publicApiFallback) {
-    addAPIProvider('custom', {
-      resources: [appConfig.nuxtIcon?.iconifyApiOptions.url],
-      index: 0
+    // don't override the default public api if publicApiFallback is enabled. See more: https://iconify.design/docs/api/providers.html
+    if (appConfig.iconTw?.iconifyApiOptions?.publicApiFallback) {
+      addAPIProvider('custom', {
+        resources: [appConfig.iconTw?.iconifyApiOptions.url],
+        index: 0,
+      })
+      return
+    }
+
+    // override the default public api to force the use of the custom API
+    addAPIProvider('', {
+      resources: [appConfig.iconTw?.iconifyApiOptions.url],
     })
-    return
-  }
+  },
+  { immediate: true }
+)
 
-  // override the default public api to force the use of the custom API
-  addAPIProvider('', {
-    resources: [appConfig.nuxtIcon?.iconifyApiOptions.url],
-  })
-}, { immediate: true })
-
-const state = useState<Record<string, IconifyIcon | undefined>>('icons', () => ({}))
+const state = useState<Record<string, IconifyIcon | undefined>>(
+  'icons',
+  () => ({})
+)
 const isFetching = ref(false)
 const iconName = computed(() => {
-  if (appConfig.nuxtIcon?.aliases && appConfig.nuxtIcon.aliases[props.name]) {
-    return appConfig.nuxtIcon.aliases[props.name].replace(/^i-/, '')
+  if (appConfig.iconTw?.aliases && appConfig.iconTw.aliases[props.name]) {
+    return appConfig.iconTw.aliases[props.name].replace(/^i-/, '')
   }
 
   return props.name.replace(/^i-/, '')
 })
-const icon = computed<IconifyIcon | undefined>(() => state.value?.[iconName.value])
-const component = computed(() => nuxtApp.vueApp.component(iconName.value as string))
+const icon = computed<IconifyIcon | undefined>(
+  () => state.value?.[iconName.value]
+)
+const component = computed(() =>
+  nuxtApp.vueApp.component(iconName.value as string)
+)
 const sSize = computed(() => {
-  // Disable size if appConfig.nuxtIcon.size === false
+  // Disable size if appConfig.iconTw.size === false
   // @ts-ignore
-  if (!props.size && typeof appConfig.nuxtIcon?.size === 'boolean' && !appConfig.nuxtIcon?.size) {
+  if (
+    !props.size &&
+    typeof appConfig.iconTw?.size === 'boolean' &&
+    !appConfig.iconTw?.size
+  ) {
     return undefined
   }
   // @ts-ignore
-  const size = props.size || appConfig.nuxtIcon?.size || '1em'
+  const size = props.size || appConfig.iconTw?.size || '1em'
   if (String(Number(size)) === size) {
     return `${size}px`
   }
   return size
 })
-const className = computed(() => (appConfig as any)?.nuxtIcon?.class ?? 'icon')
+const className = computed(() => (appConfig as any)?.iconTw?.class ?? 'icon')
 
-async function loadIconComponent () {
+async function loadIconComponent() {
   if (component.value) {
     return
   }
   if (!state.value?.[iconName.value]) {
     isFetching.value = true
-    state.value[iconName.value] = await loadIcon(iconName.value as string).catch(() => undefined)
+    state.value[iconName.value] = await loadIcon(
+      iconName.value as string
+    ).catch(() => undefined)
     isFetching.value = false
   }
 }
 
 watch(() => iconName.value, loadIconComponent)
 
-!component.value && await loadIconComponent()
+!component.value && (await loadIconComponent())
 </script>
 
 <template>
-  <span v-if="isFetching" :class="className" :style="{ width: sSize, height: sSize }" />
-  <Iconify v-else-if="icon" :icon="icon" :class="className" :width="sSize" :height="sSize" />
-  <Component :is="component" v-else-if="component" :class="className" :width="sSize" :height="sSize" />
-  <span v-else :class="className" :style="{ fontSize: sSize, lineHeight: sSize, width: sSize, height: sSize }"><slot>{{ name }}</slot></span>
+  <span
+    v-if="isFetching"
+    :class="className"
+    :style="{ width: sSize, height: sSize }"
+  />
+  <Iconify
+    v-else-if="icon"
+    :icon="icon"
+    :class="className"
+    :width="sSize"
+    :height="sSize"
+  />
+  <Component
+    :is="component"
+    v-else-if="component"
+    :class="className"
+    :width="sSize"
+    :height="sSize"
+  />
+  <span
+    v-else
+    :class="className"
+    :style="{ fontSize: sSize, lineHeight: sSize, width: sSize, height: sSize }"
+    ><slot>{{ name }}</slot></span
+  >
 </template>
 
 <style scoped>

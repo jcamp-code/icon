@@ -10,8 +10,8 @@ export default defineNuxtPlugin((_nuxtApp) => {
   const appConfig = useAppConfig()
 
   // appConfig overrides module settings in nuxt config, except for resolvedPrefixes
-  appConfig.nuxtIcon = defu(options, appConfig.nuxtIcon) as any
+  appConfig.iconTw = defu(options, appConfig.iconTw) as any
 
-  if (appConfig.nuxtIcon)
-    appConfig.nuxtIcon.resolvedPrefixes = options?.resolvedPrefixes
+  if (appConfig.iconTw)
+    appConfig.iconTw.resolvedPrefixes = options?.resolvedPrefixes
 })

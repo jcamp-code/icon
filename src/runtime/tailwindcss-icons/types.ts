@@ -1,5 +1,5 @@
 import type { CollectionNames } from './collections'
-import type { IconifyJSONIconsData } from './iconifyTypes'
+import type { IconifyJSONIconsData } from './types.iconify'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
@@ -11,6 +11,12 @@ export type GenerateOptions = {
    */
   scale?: number
   /**
+   * Size in pixels, or string. Will override scale if both set
+   *
+   * @default null
+   */
+  size?: number | string
+  /**
    * Extra CSS properties applied to the generated CSS.
    *
    * @default `{}`
@@ -18,21 +24,18 @@ export type GenerateOptions = {
   extraProperties?: Record<string, string>
 }
 
-export type IconsOptions = {
+export type IconCollection = Record<
+  string,
+  Optional<IconifyJSONIconsData, 'prefix'>
+>
+
+export type IconsTailwindPluginOptions = {
   /**
    * Class prefix for matching icon rules.
    *
    * @default `i`
    */
   prefix?: string
-} & GenerateOptions
-
-export type IconCollection = Record<
-  string,
-  Optional<IconifyJSONIconsData, 'prefix'>
->
-
-export type IconsPluginOptions = {
   /**
    * Provide any icon files or collections you want to add to the automatically resolved Iconify sets
    * Can be either single or array of:
@@ -53,4 +56,4 @@ export type IconsPluginOptions = {
    * Used to return all the resolved Iconify and custom prefixes
    */
   resolvedPrefixes?: string[]
-} & IconsOptions
+} & GenerateOptions

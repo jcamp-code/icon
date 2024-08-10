@@ -26,8 +26,8 @@
     "test:snapshot": "vitest -u",
     "prepublishOnly": "pnpm lint",
     "release": "release-it",
-    "gen-types": "node ./src/gen-types.mjs",
-    "prepare": "pnpm run gen-types"
+    "gen-collections": "node ./gen-collections.mjs",
+    "prepare": "pnpm run gen-collections"
   },
   "dependencies": {
     "defu": "6.1.4",
