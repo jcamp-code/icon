@@ -5,7 +5,6 @@ import {
   addPlugin,
   addTemplate,
 } from '@nuxt/kit'
-import type { Config as TailwindConfig } from 'tailwindcss'
 import { defu } from 'defu'
 import type { NuxtOptions } from 'nuxt/schema'
 import type { IconsPluginOptions } from './runtime/tailwindcss-icons/types'
@@ -60,9 +59,7 @@ export default defineNuxtModule<TailwindIconsModuleOptions>({
       ]
     }
 
-    ;(nuxt.options.tailwindcss!.configPath as string[]).unshift(
-      twConfigTemplate.dst
-    )
+    nuxt.options.tailwindcss!.configPath.unshift(twConfigTemplate.dst)
 
     const iconPluginOptions = defu(
       nuxt.options.runtimeConfig.public.tailwindIcons as any,

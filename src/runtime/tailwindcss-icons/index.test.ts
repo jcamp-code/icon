@@ -5,7 +5,7 @@ import { iconsPlugin } from '.'
 import { getIconCollections } from './core'
 
 test('main', () => {
-  const result = postcss([
+  postcss([
     tailwindcss({
       config: {
         content: [
@@ -150,7 +150,7 @@ test('main', () => {
 })
 
 test('custom icon', () => {
-  const result = postcss([
+  postcss([
     tailwindcss({
       config: {
         content: [
@@ -295,7 +295,7 @@ test('load custom json', () => {
     }),
   ])
 
-  const result = processor
+  processor
     .process(
       `
 .foo {
@@ -324,7 +324,7 @@ test('load custom json', () => {
       `)
     })
 
-  const result2 = processor
+  processor
     .process(
       `
 .foo {
@@ -376,7 +376,7 @@ test('load custom json array', () => {
     }),
   ])
 
-  const result = processor
+  processor
     .process(
       `
 .foo {
@@ -405,7 +405,7 @@ test('load custom json array', () => {
       `)
     })
 
-  const result2 = processor
+  processor
     .process(
       `
   .foo {
@@ -436,7 +436,7 @@ test('load custom json array', () => {
 })
 
 test('no prefix', () => {
-  const result = postcss([
+  postcss([
     tailwindcss({
       config: {
         content: [
