@@ -33,8 +33,7 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
       tailwindOnly: false,
       resolvedPrefixes: [],
       prefix: 'i',
-      scale: 1,
-      size: undefined,
+      size: '1em',
     } as TailwindIconsModuleOptions,
     setup(options, nuxt) {
       const { resolve } = createResolver(import.meta.url)
@@ -90,9 +89,9 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
                 $schema: {
                   title: 'Icon Size',
                   description:
-                    'Set the default icon size. Set to false to disable the sizing of icon in style.',
+                    'Set the default icon size. Set to false to disable the sizing of icon in style. Number is px',
                   tags: ['@studioIcon material-symbols:format-size-rounded'],
-                  tsType: 'string | false',
+                  tsType: 'string | number | false',
                 },
               },
               class: {
@@ -139,7 +138,7 @@ const module: NuxtModule<TailwindIconsModuleOptions> =
                 $schema: {
                   title: 'Tailwind Class Prefix',
                   description:
-                    'Set the Tailwind class prefix; leave bank or null to not use a prefix',
+                    'Set the Tailwind class prefix; leave bank or null to not use a prefix. Can also set in ',
                 },
               },
               resolvedPrefixes: {

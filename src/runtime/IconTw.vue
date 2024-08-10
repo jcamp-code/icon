@@ -4,7 +4,7 @@ import { useAppConfig } from '#imports'
 
 const appConfig = useAppConfig() as unknown as {
   iconTw: {
-    size?: string
+    size?: string | number | false
     class?: string
     aliases?: Record<string, string>
   }
@@ -46,10 +46,7 @@ const sSize = computed(() => {
     return undefined
   }
   const size = props.size || appConfig.iconTw?.size || '1em'
-  if (String(Number(size)) === size) {
-    return `${size}px`
-  }
-  return size
+  return String(Number(size)) === size ? `${size}px` : size
 })
 </script>
 

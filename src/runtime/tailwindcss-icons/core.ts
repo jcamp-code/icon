@@ -160,7 +160,11 @@ export const generateIconComponent = (
   const rules: Record<string, string> = {}
   css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
     if (prop === 'width' || prop === 'height') {
-      rules[prop] = `${options.scale}em`
+      rules[prop] = !options.size
+        ? ''
+        : String(Number(options.size)) === options.size
+        ? `${options.size}px`
+        : `${options.size}`
     } else {
       rules[prop] = value
     }
@@ -196,7 +200,7 @@ export const getAllIconComponents = (
   const {
     collections: propsCollections,
     customCollections = {},
-    scale = 1,
+    size = '1em',
     prefix = 'i',
     extraProperties = {},
   } = iconsTailwindPluginOptions ?? {}
@@ -224,7 +228,7 @@ export const getAllIconComponents = (
       if (!data || !name) return
       const key = prefix ? `${colPrefix}-${name}` : `${name}`
       components[prefix || colPrefix][key] = generateIconComponent(data, {
-        scale,
+        size,
         extraProperties,
       })
     })

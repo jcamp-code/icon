@@ -9,7 +9,7 @@ import { useAppConfig, useNuxtApp, useState } from '#imports'
 const nuxtApp = useNuxtApp()
 const appConfig = useAppConfig() as unknown as {
   iconTw: {
-    size?: string
+    size?: string | number | false
     class?: string
     aliases?: Record<string, string>
     iconifyApiOptions?: {
@@ -90,10 +90,7 @@ const sSize = computed(() => {
   }
   // @ts-ignore
   const size = props.size || appConfig.iconTw?.size || '1em'
-  if (String(Number(size)) === size) {
-    return `${size}px`
-  }
-  return size
+  return String(Number(size)) === size ? `${size}px` : size
 })
 const className = computed(() => (appConfig as any)?.iconTw?.class ?? 'icon')
 
@@ -139,8 +136,9 @@ watch(() => iconName.value, loadIconComponent)
     v-else
     :class="className"
     :style="{ fontSize: sSize, lineHeight: sSize, width: sSize, height: sSize }"
-    ><slot>{{ name }}</slot></span
   >
+    <slot>{{ name }}</slot>
+  </span>
 </template>
 
 <style scoped>

@@ -5,17 +5,11 @@ export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 export type GenerateOptions = {
   /**
-   * Scale relative to the current font size (1em).
+   * Size in pixels, or string. Set to false to not include any sizing.
    *
-   * @default 1
+   * @default '1em'
    */
-  scale?: number
-  /**
-   * Size in pixels, or string. Will override scale if both set
-   *
-   * @default null
-   */
-  size?: number | string
+  size?: string | number | false
   /**
    * Extra CSS properties applied to the generated CSS.
    *

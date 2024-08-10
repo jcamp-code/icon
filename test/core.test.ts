@@ -11,7 +11,7 @@ test('generateComponent', () => {
     generateComponent(
       { icons: collections['mdi'], name: 'home' },
       {
-        scale: 1.5,
+        size: '1.5em',
         extraProperties: {
           '-webkit-mask-size': 'contain',
           '-webkit-mask-position': 'center',
